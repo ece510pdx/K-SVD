@@ -1,4 +1,4 @@
-=#import image data
+#import image data
 import os
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -46,6 +46,8 @@ def get_samples(path,samples,isgray): #folder path for jpg images, # of samples 
     
                         block = gray[x:x2,y:y2] #find an 8x8 block from the grayscale image
                         #print(block)
+                        block = np.reshape(block,64)
+                        #print(block)
     
                         if i ==1: #make the first block all zeros
                             block_list = np.dot(block,0)
@@ -80,14 +82,23 @@ def get_samples(path,samples,isgray): #folder path for jpg images, # of samples 
                     y2 = y+8
                     
                     block = img[x:x2,y:y2,0:3] #find an 8x8x3 block of image
+                    #print(block)
+                    block = np.reshape(block,192)
+                    #print(block)
+                    #sz = block.shape
+                    #print(sz)
                     
                     if i ==1: #make the first block all zeros
                         block_list = np.dot(block,0)
                         i = 2;
                     
+                    
                     block_list = np.concatenate((block_list, block), axis=0)
+                    
                     j+=1
                     #print(j)
 
 
     return block_list
+    
+
